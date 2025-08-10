@@ -164,6 +164,7 @@
     "uploadFiles": "Laddar upp {files} filer...",
     "uploadMessage": "Välj ett alternativ att ladda upp.",
     "optionalPassword": "Valfritt lösenord",
+    "optionalCode": "Delningskod",
     "resolution": "Upplösning",
     "discardEditorChanges": "Är du säker på att du vill förkasta ändringarna du gjort?",
     "replaceOrSkip": "Replace or skip files",

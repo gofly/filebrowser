@@ -164,6 +164,7 @@
     "uploadFiles": "Inviando {files} file...",
     "uploadMessage": "Seleziona un'opzione per il caricamento.",
     "optionalPassword": "Password opzionale",
+    "optionalCode": "Codice di condivisione",
     "resolution": "Risoluzione",
     "discardEditorChanges": "Sei sicuro di voler scartare le modifiche apportate?",
     "replaceOrSkip": "Replace or skip files",
