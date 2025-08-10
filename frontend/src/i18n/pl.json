@@ -140,6 +140,7 @@
     "uploadFiles": "Wysyłam pliki: {files}...",
     "uploadMessage": "Wybierz opcję przesyłania.",
     "optionalPassword": "Opcjonalne hasło",
+    "optionalCode": "Kod udostępniania",
     "resolution": "Rozdzielczość",
     "discardEditorChanges": "Czy na pewno chcesz odrzucić wprowadzone zmiany?"
   },

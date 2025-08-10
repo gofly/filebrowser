@@ -140,6 +140,7 @@
     "uploadFiles": "מעלה {files} קבצים...",
     "uploadMessage": "בחר אפשרות העלאה.",
     "optionalPassword": "סיסמא אופציונלית",
+    "optionalCode": "קוד שיתוף",
     "resolution": "Resolution",
     "discardEditorChanges": "האם אתה בטוח שברצונך לבטל את השינויים שביצעת?"
   },

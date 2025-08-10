@@ -140,6 +140,7 @@
     "uploadFiles": "正在上傳 {files} ...",
     "uploadMessage": "選擇上傳項。",
     "optionalPassword": "密碼（選填，不填即無密碼）",
+    "optionalCode": "分享碼（選填，不填即自動生成）",
     "resolution": "解析度",
     "discardEditorChanges": "你確定要放棄所做的變更嗎?"
   },

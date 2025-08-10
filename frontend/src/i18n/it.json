@@ -140,6 +140,7 @@
     "uploadFiles": "Uploading {files} files...",
     "uploadMessage": "Seleziona un'opzione per il caricamento.",
     "optionalPassword": "Optional password",
+    "optionalCode": "Codice di condivisione",
     "resolution": "Resolution",
     "discardEditorChanges": "Are you sure you wish to discard the changes you've made?"
   },

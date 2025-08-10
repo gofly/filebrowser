@@ -140,6 +140,7 @@
     "uploadFiles": "Nahrávání {files} souborů...",
     "uploadMessage": "Vyberte možnost pro nahrání.",
     "optionalPassword": "Volitelné heslo",
+    "optionalCode": "Kód pro sdílení",
     "resolution": "Rozlišení",
     "discardEditorChanges": "Opravdu chcete zrušit provedené změny?"
   },

@@ -140,6 +140,7 @@
     "uploadFiles": "Nahráva sa {files} súborov...",
     "uploadMessage": "Zvoľte možnosť nahrávania.",
     "optionalPassword": "Voliteľné heslo",
+    "optionalCode": "Kód na zdieľanie",
     "resolution": "Rozlíšenie",
     "discardEditorChanges": "Naozaj chcete zahodiť vykonané zmeny?"
   },

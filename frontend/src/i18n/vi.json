@@ -140,6 +140,7 @@
     "uploadFiles": "Đang tải lên {files} tệp...",
     "uploadMessage": "Chọn một tùy chọn để tải lên.",
     "optionalPassword": "Mật khẩu tùy chọn",
+    "optionalCode": "Mã chia sẻ",
     "resolution": "Độ phân giải",
     "discardEditorChanges": "Bạn có chắc chắn muốn hủy bỏ các thay đổi đã thực hiện không?"
   },

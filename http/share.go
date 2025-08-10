@@ -91,13 +91,18 @@ var sharePostHandler = withPermShare(func(w http.ResponseWriter, r *http.Request
 		defer r.Body.Close()
 	}
 
-	bytes := make([]byte, 6)
-	_, err := rand.Read(bytes)
-	if err != nil {
-		return http.StatusInternalServerError, err
-	}
+	var str string
+	if body.Code != "" {
+		str = body.Code
+	} else {
+		bytes := make([]byte, 6)
+		_, err := rand.Read(bytes)
+		if err != nil {
+			return http.StatusInternalServerError, err
+		}
 
-	str := base64.URLEncoding.EncodeToString(bytes)
+		str = base64.URLEncoding.EncodeToString(bytes)
+	}
 
 	var expire int64 = 0
 
@@ -146,8 +151,12 @@ var sharePostHandler = withPermShare(func(w http.ResponseWriter, r *http.Request
 		Token:        token,
 	}
 
-	if err := d.store.Share.Save(s); err != nil {
-		return http.StatusInternalServerError, err
+	if _, err := d.store.Share.GetByHash(str); err == fbErrors.ErrNotExist {
+		if err := d.store.Share.Save(s); err != nil {
+			return http.StatusInternalServerError, err
+		}
+	} else {
+		return http.StatusConflict, fbErrors.ErrExist
 	}
 
 	return renderJSON(w, r, s)

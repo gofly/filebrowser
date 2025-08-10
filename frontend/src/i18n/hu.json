@@ -140,6 +140,7 @@
     "uploadFiles": "{files} fájl feltöltése…",
     "uploadMessage": "Válasszon egy feltöltési módot.",
     "optionalPassword": "Választható jelszó",
+    "optionalCode": "Megosztási kód",
     "resolution": "Resolution",
     "discardEditorChanges": "Are you sure you wish to discard the changes you've made?"
   },

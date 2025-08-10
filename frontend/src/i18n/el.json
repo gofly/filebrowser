@@ -140,6 +140,7 @@
     "uploadFiles": "Μεταφόρτωση {files} αρχείων…",
     "uploadMessage": "Επιλέξτε μια επιλογή για τη μεταφόρτωση.",
     "optionalPassword": "Προαιρετικός κωδικός πρόσβασης",
+    "optionalCode": "Κωδικός κοινής χρήσης",
     "resolution": "Resolution",
     "discardEditorChanges": "Are you sure you wish to discard the changes you've made?"
   },

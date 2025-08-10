@@ -140,6 +140,7 @@
     "uploadFiles": "Загружаю {files} файлы...",
     "uploadMessage": "Выберите вариант для загрузки.",
     "optionalPassword": "Необязательный пароль",
+    "optionalCode": "Код для обмена",
     "resolution": "Разрешение",
     "discardEditorChanges": "Вы действительно желаете отменить ваши правки?"
   },

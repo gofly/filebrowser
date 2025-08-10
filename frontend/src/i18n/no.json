@@ -140,6 +140,7 @@
     "uploadFiles": "Laster opp {filer} filer...",
     "uploadMessage": "Velg et alternativ for opplasting.",
     "optionalPassword": "Valgfritt passord",
+    "optionalCode": "Delingskode",
     "resolution": "Oppløysning",
     "discardEditorChanges": "Er du sikker på at du vil forkaste endringene du har gjort?"
   },

@@ -140,6 +140,7 @@
     "uploadFiles": "در حال آپلود {files} فایل‌ها...",
     "uploadMessage": "یک گزینه برای آپلود انتخاب کنید.",
     "optionalPassword": "رمز عبور اختیاری",
+    "optionalCode": "کد اشتراک",
     "resolution": "وضوح تصویر",
     "discardEditorChanges": "آیا مطمئن هستید که می‌خواهید تغییراتی را که ایجاد کرده‌اید، لغو کنید؟"
   },

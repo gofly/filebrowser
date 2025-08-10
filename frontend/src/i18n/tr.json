@@ -140,6 +140,7 @@
     "uploadFiles": "Uploading {files} files...",
     "uploadMessage": "Yüklemek için bir seçenek belirleyin.",
     "optionalPassword": "İsteğe bağlı şifre",
+    "optionalCode": "Paylaşım kodu",
     "resolution": "Resolution",
     "discardEditorChanges": "Are you sure you wish to discard the changes you've made?"
   },

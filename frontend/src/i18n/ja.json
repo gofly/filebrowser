@@ -140,6 +140,7 @@
     "uploadFiles": "{files} 個のファイルをアップロードしています…",
     "uploadMessage": "アップロードするオプションを選択してください。",
     "optionalPassword": "パスワード（オプション）",
+    "optionalCode": "共有コード",
     "resolution": "Resolution",
     "discardEditorChanges": "Are you sure you wish to discard the changes you've made?"
   },

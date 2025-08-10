@@ -140,6 +140,7 @@
     "uploadFiles": "Importation de {files} fichiers...",
     "uploadMessage": "Sélectionnez une option d'import.",
     "optionalPassword": "Mot de passe optionnel",
+    "optionalCode": "Code de partage",
     "resolution": "Résolution",
     "discardEditorChanges": "Êtes-vous sûr de vouloir annuler les modifications apportées ?"
   },

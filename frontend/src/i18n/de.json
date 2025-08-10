@@ -140,6 +140,7 @@
     "uploadFiles": "Upload von {files} Dateien...",
     "uploadMessage": "Wählen Sie eine Upload-Methode",
     "optionalPassword": "Optionales Passwort",
+    "optionalCode": "Freigabecode",
     "resolution": "Auflösung",
     "discardEditorChanges": "Möchten Sie die vorgenommenen Änderungen wirklich verwerfen?"
   },

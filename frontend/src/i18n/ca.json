@@ -140,6 +140,7 @@
     "uploadFiles": "Pujant {files} fitxers...",
     "uploadMessage": "Seleccioneu una opció per pujar.",
     "optionalPassword": "Contrasenya opcional",
+    "optionalCode": "Codi de compartició ",
     "resolution": "Resolució",
     "discardEditorChanges": "Esteu segur que voleu descartar els canvis que heu fet?"
   },
