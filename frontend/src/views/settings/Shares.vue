@@ -154,6 +154,6 @@ const humanTime = (time: number) => {
 };
 
 const buildLink = (share: Share) => {
-  return api.getShareURL(share);
+  return share.path.split('/').pop() + '\r\n' + api.getShareURL(share);
 };
 </script>

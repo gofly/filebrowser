@@ -270,7 +270,7 @@ export default {
       return dayjs(time * 1000).fromNow();
     },
     buildLink(share) {
-      return api.share.getShareURL(share);
+      return share.path.split('/').pop() + '\r\n' + api.share.getShareURL(share);
     },
     buildDownloadLink(share) {
       return api.pub.getDownloadURL(
