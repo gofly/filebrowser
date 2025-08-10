@@ -10,6 +10,7 @@ import (
 type StorageBackend interface {
 	All() ([]*Link, error)
 	FindByUserID(id uint) ([]*Link, error)
+	FindByPath(path string) ([]*Link, error)
 	GetByHash(hash string) (*Link, error)
 	GetPermanent(path string, id uint) (*Link, error)
 	Gets(path string, id uint) ([]*Link, error)
@@ -66,6 +67,34 @@ func (s *Storage) FindByUserID(id uint) ([]*Link, error) {
 	}
 
 	return links, nil
+}
+
+// UpdatePath wraps a StorageBackend.UpdatePath.
+func (s *Storage) UpdatePath(oldPath, newPath string) error {
+	links, err := s.back.FindByPath(oldPath)
+
+	if err != nil {
+		if err == errors.ErrNotExist {
+			return nil
+		}
+		return err
+	}
+
+	for _, link := range links {
+		if link.Expire != 0 && link.Expire <= time.Now().Unix() {
+			if err := s.Delete(link.Hash); err != nil {
+				return err
+			}
+		} else {
+			link.Path = newPath
+			err := s.back.Save(link)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
 
 // GetByHash wraps a StorageBackend.GetByHash.
