@@ -34,6 +34,16 @@ func (s shareBackend) FindByUserID(id uint) ([]*share.Link, error) {
 	return v, err
 }
 
+func (s shareBackend) FindByPath(path string) ([]*share.Link, error) {
+	var v []*share.Link
+	err := s.db.Select(q.Eq("Path", path)).Find(&v)
+	if errors.Is(err, storm.ErrNotFound) {
+		return v, fbErrors.ErrNotExist
+	}
+
+	return v, err
+}
+
 func (s shareBackend) GetByHash(hash string) (*share.Link, error) {
 	var v share.Link
 	err := s.db.One("Hash", hash, &v)

@@ -225,7 +225,10 @@ func resourcePatchHandler(fileCache FileCache) handleFunc {
 		err = d.RunHook(func() error {
 			return patchAction(r.Context(), action, src, dst, d, fileCache)
 		}, action, src, dst, d.user)
-
+		if err != nil {
+			return errToStatus(err), err
+		}
+		err = d.store.Share.UpdatePath(src, dst)
 		return errToStatus(err), err
 	})
 }
