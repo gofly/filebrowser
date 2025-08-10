@@ -114,6 +114,13 @@
           v-model.trim="password"
           tabindex="3"
         />
+        <p>{{ $t("prompts.optionalCode") }}</p>
+        <input
+          class="input input--block"
+          type="code"
+          v-model.trim="code"
+          tabindex="4"
+        />
       </div>
 
       <div class="card-action">
@@ -223,11 +230,12 @@ export default {
         let res = null;
 
         if (!this.time) {
-          res = await api.share.create(this.url, this.password);
+          res = await api.share.create(this.url, this.password, this.code);
         } else {
           res = await api.share.create(
             this.url,
             this.password,
+            this.code,
             this.time,
             this.unit
           );

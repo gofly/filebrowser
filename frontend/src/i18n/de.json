@@ -166,6 +166,7 @@
     "uploadFiles": "{files} Dateien werden hochgeladen …",
     "uploadMessage": "Wähle eine Upload-Option.",
     "optionalPassword": "Optionales Passwort",
+    "optionalCode": "Freigabecode",
     "resolution": "Auflösung",
     "discardEditorChanges": "Möchtest du deine Änderungen wirklich verwerfen?",
     "replaceOrSkip": "Dateien ersetzen oder überspringen",

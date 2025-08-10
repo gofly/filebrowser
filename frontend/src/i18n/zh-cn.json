@@ -166,6 +166,7 @@
     "uploadFiles": "正在上传 {files} ...",
     "uploadMessage": "请选择上传选项",
     "optionalPassword": "密码（选填，留空则无需密码）",
+    "optionalCode": "分享码（选填，留空即自动生成）",
     "resolution": "分辨率",
     "discardEditorChanges": "是否放弃已修改的内容？",
     "replaceOrSkip": "替换或跳过文件",

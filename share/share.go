@@ -2,6 +2,7 @@ package share
 
 type CreateBody struct {
 	Password string `json:"password"`
+	Code     string `json:"code"`
 	Expires  string `json:"expires"`
 	Unit     string `json:"unit"`
 }
