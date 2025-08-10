@@ -88,14 +88,78 @@
             {{
               req.isDir
                 ? t("download.downloadFolder")
-                : t("download.downloadFile")
+                : $t("sidebar.preview")
             }}
           </div>
           <div
             v-if="!req.isDir"
             class="share__box__element share__box__center share__box__icon"
+            style="padding: 0em !important; height: 12em !important"
           >
-            <i class="material-icons">{{ icon }}</i>
+            <a
+              target="_blank"
+              :href="link"
+              class="button button--flat"
+              v-if="
+                req.type === 'image'
+              "
+              style="height: 12em; padding: 0; margin: 0"
+            >
+              <img style="height: 12em" :src="link" />
+            </a>
+            <div
+              v-else-if="
+                req.type === 'audio'
+              "
+              style="height: 12em; padding-top: 1em; margin: 0"
+            >
+              <button
+                @click="play"
+                v-if="!tag"
+                style="
+                  font-size: 6em !important;
+                  border: 0px;
+                  outline: none;
+                  background: white;
+                "
+                class="material-icons"
+              >
+                play_circle_filled
+              </button>
+              <button
+                @click="play"
+                v-if="tag"
+                style="
+                  font-size: 6em !important;
+                  border: 0px;
+                  outline: none;
+                  background: white;
+                "
+                class="material-icons"
+              >
+                pause_circle_filled
+              </button>
+              <audio
+                id="myaudio"
+                ref="audio"
+                :src="link"
+                controls
+                :autoplay="tag"
+              ></audio>
+            </div>
+            <video
+              v-else-if="
+                req.type === 'video'
+              "
+              style="height: 12em; padding: 0; margin: 0"
+              :src="link"
+              controls
+            >
+              Sorry, your browser doesn't support embedded videos, but don't
+              worry, you can <a :href="link">download it</a>
+              and watch it with your favorite video player!
+            </video>
+            <i v-else class="material-icons">call_to_action</i>
           </div>
           <div class="share__box__element" style="height: 3em">
             <strong>{{ $t("prompts.displayName") }}</strong> {{ req.name }}
