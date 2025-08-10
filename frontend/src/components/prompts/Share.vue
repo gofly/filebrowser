@@ -252,7 +252,7 @@ export default {
       return dayjs(time * 1000).fromNow();
     },
     buildLink(share) {
-      return api.getShareURL(share);
+      return share.path.split('/').pop() + '\r\n' + api.getShareURL(share);
     },
     sort() {
       this.links = this.links.sort((a, b) => {

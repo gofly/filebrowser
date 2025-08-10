@@ -543,11 +543,12 @@ const download = () => {
 };
 
 const linkSelected = () => {
+  const path = req.value ? req.value.items[fileStore.selected[0]].path : "";
   return isSingleFile() && req.value
-    ? api.getDownloadURL({
+    ? path.split('/').pop() + '\r\n' + api.getDownloadURL({
         ...req.value,
         hash: hash.value,
-        path: req.value.items[fileStore.selected[0]].path,
+        path: path,
       })
     : "";
 };
