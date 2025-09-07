@@ -1,4 +1,4 @@
-import { fetchURL, removePrefix, createURL } from "./utils";
+import { fetchURL, removePrefix, createDownloadURL } from "./utils";
 import { baseURL } from "@/utils/constants";
 
 export async function fetch(url: string, password: string = "") {
@@ -65,11 +65,11 @@ export function download(
   window.open(url);
 }
 
-export function getDownloadURL(res: Resource, inline = false) {
+export function getPublicDownloadURL(res: Resource, inline = false) {
   const params = {
     ...(inline && { inline: "true" }),
     ...(res.token && { token: res.token }),
   };
 
-  return createURL("api/public/dl/" + res.hash + res.path, params);
+  return createDownloadURL("api/public/dl/" + res.hash + res.path, params);
 }

@@ -1,6 +1,7 @@
 {
   "port": 80,
   "baseURL": "",
+  "downloadURL": "",
   "address": "",
   "log": "stdout",
   "database": "/database/filebrowser.db",

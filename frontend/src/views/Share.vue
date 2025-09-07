@@ -416,7 +416,7 @@ const icon = computed(() => {
   return "insert_drive_file";
 });
 
-const link = computed(() => (req.value ? api.getDownloadURL(req.value) : ""));
+const link = computed(() => (req.value ? api.getPublicDownloadURL(req.value) : ""));
 const raw = computed(() => {
   if (!req.value || !req.value.items[fileStore.selected[0]]) return "";
   return createURL(
@@ -425,7 +425,7 @@ const raw = computed(() => {
   );
 });
 const inlineLink = computed(() =>
-  req.value ? api.getDownloadURL(req.value, true) : ""
+  req.value ? api.getPublicDownloadURL(req.value, true) : ""
 );
 const humanSize = computed(() => {
   if (req.value) {
@@ -542,7 +542,7 @@ const download = () => {
 const linkSelected = () => {
   const path = req.value ? req.value.items[fileStore.selected[0]].path : "";
   return isSingleFile() && req.value
-    ? path.split('/').pop() + '\r\n' + api.getDownloadURL({
+    ? path.split('/').pop() + '\r\n' + api.getPublicDownloadURL({
         ...req.value,
         hash: hash.value,
         path: path,

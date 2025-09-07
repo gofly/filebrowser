@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { renew, logout } from "@/utils/auth";
-import { baseURL } from "@/utils/constants";
+import { baseURL, downloadURL } from "@/utils/constants";
 import { encodePath } from "@/utils/url";
 
 export class StatusError extends Error {
@@ -108,4 +108,15 @@ export function setSafeTimeout(callback: () => void, delay: number): number {
   }
 
   return scheduleNext();
+}
+
+export function createDownloadURL(endpoint: string, searchParams = {}): string {
+  let prefix = downloadURL;
+  if (!prefix.endsWith("/")) {
+    prefix = prefix + "/";
+  }
+  const url = new URL(prefix + encodePath(endpoint), origin);
+  url.search = new URLSearchParams(searchParams).toString();
+
+  return url.toString();
 }

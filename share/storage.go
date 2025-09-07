@@ -74,7 +74,7 @@ func (s *Storage) UpdatePath(oldPath, newPath string) error {
 	links, err := s.back.FindByPath(oldPath)
 
 	if err != nil {
-		if err == errors.ErrNotExist {
+		if err == fberrors.ErrNotExist {
 			return nil
 		}
 		return err

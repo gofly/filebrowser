@@ -50,6 +50,7 @@ var (
 		"redis-cache-url":                  "redisCacheUrl",
 		"token-expiration-time":            "tokenExpirationTime",
 		"baseurl":                          "baseURL",
+		"downloadurl":                      "downloadURL",
 	}
 
 	warnedFlags = map[string]bool{}
@@ -106,6 +107,7 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.StringP("baseURL", "b", "", "base url")
+	flags.String("downloadURL", "", "download url")
 	flags.String("tokenExpirationTime", "2h", "user session timeout")
 	flags.Bool("disableThumbnails", false, "disable image thumbnails")
 	flags.Bool("disablePreviewResize", false, "disable resize of image previews")

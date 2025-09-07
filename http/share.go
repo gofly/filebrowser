@@ -235,12 +235,12 @@ var sharePostHandler = withPermShare(func(w http.ResponseWriter, r *http.Request
 		Token:        token,
 	}
 
-	if _, err := d.store.Share.GetByHash(str); err == fbErrors.ErrNotExist {
+	if _, err := d.store.Share.GetByHash(str); err == fberrors.ErrNotExist {
 		if err := d.store.Share.Save(s); err != nil {
 			return http.StatusInternalServerError, err
 		}
 	} else {
-		return http.StatusConflict, fbErrors.ErrExist
+		return http.StatusConflict, fberrors.ErrExist
 	}
 
 	return renderJSON(w, r, toShareResponse(s))

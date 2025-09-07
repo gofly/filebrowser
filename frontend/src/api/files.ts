@@ -107,7 +107,7 @@ export async function post(
   url: string,
   content: ApiContent = "",
   overwrite = false,
-  onupload: any = () => {}
+  onupload: any = () => { }
 ) {
   // Use the pre-existing API if:
   const useResourcesApi =
@@ -186,9 +186,8 @@ function moveCopy(
     const finalOverwrite =
       item.overwrite == undefined ? overwrite : item.overwrite;
     const finalRename = item.rename == undefined ? rename : item.rename;
-    const url = `${from}?action=${
-      copy ? "copy" : "rename"
-    }&destination=${to}&override=${finalOverwrite}&rename=${finalRename}`;
+    const url = `${from}?action=${copy ? "copy" : "rename"
+      }&destination=${to}&override=${finalOverwrite}&rename=${finalRename}`;
     promises.push(resourceAction(url, "PATCH"));
   }
   layoutStore.closeHovers();
@@ -208,7 +207,7 @@ export async function checksum(url: string, algo: ChecksumAlg) {
   return (await data.json()).checksums[algo];
 }
 
-export function getDownloadURL(file: ResourceItem, inline: any) {
+export function getRawURL(file: ResourceItem, inline: any) {
   const params = {
     ...(inline && { inline: "true" }),
   };

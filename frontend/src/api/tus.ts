@@ -29,7 +29,7 @@ export async function upload(
   }
   return new Promise<void | string>((resolve, reject) => {
     const upload = new tus.Upload(content, {
-      endpoint: `${origin}${baseURL}${resourcePath}`,
+      endpoint: `${resourcePath}`,
       chunkSize: tusSettings.chunkSize,
       retryDelays: computeRetryDelays(tusSettings),
       parallelUploads: 1,

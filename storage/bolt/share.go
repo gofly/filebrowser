@@ -39,7 +39,7 @@ func (s shareBackend) FindByPath(path string) ([]*share.Link, error) {
 	var v []*share.Link
 	err := s.db.Select(q.Eq("Path", path)).Find(&v)
 	if errors.Is(err, storm.ErrNotFound) {
-		return v, fbErrors.ErrNotExist
+		return v, fberrors.ErrNotExist
 	}
 
 	return v, err
