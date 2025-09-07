@@ -68,6 +68,7 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.Uint32("socket-perm", 0666, "unix socket file permissions")
 	flags.StringP("baseurl", "b", "", "base url")
+	flags.String("dlurl", "", "download url")
 	flags.String("cache-dir", "", "file cache directory (disabled if empty)")
 	flags.String("token-expiration-time", "2h", "user session timeout")
 	flags.Int("img-processors", 4, "image processors count") //nolint:mnd
@@ -271,6 +272,10 @@ func getRunParams(flags *pflag.FlagSet, st *storage.Storage) (*settings.Server, 
 		server.BaseURL = val
 	}
 
+	if val, set := getStringParamB(flags, "dlurl"); set {
+		server.DownloadURL = val
+	}
+
 	if val, set := getStringParamB(flags, "log"); set {
 		server.Log = val
 	}
@@ -467,13 +472,14 @@ func quickSetup(flags *pflag.FlagSet, d pythonData) error {
 	}
 
 	ser := &settings.Server{
-		BaseURL: getStringParam(flags, "baseurl"),
-		Port:    getStringParam(flags, "port"),
-		Log:     getStringParam(flags, "log"),
-		TLSKey:  getStringParam(flags, "key"),
-		TLSCert: getStringParam(flags, "cert"),
-		Address: getStringParam(flags, "address"),
-		Root:    getStringParam(flags, "root"),
+		BaseURL:     getStringParam(flags, "baseurl"),
+		DownloadURL: getStringParam(flags, "dlurl"),
+		Port:        getStringParam(flags, "port"),
+		Log:         getStringParam(flags, "log"),
+		TLSKey:      getStringParam(flags, "key"),
+		TLSCert:     getStringParam(flags, "cert"),
+		Address:     getStringParam(flags, "address"),
+		Root:        getStringParam(flags, "root"),
 	}
 
 	err = d.store.Settings.SaveServer(ser)

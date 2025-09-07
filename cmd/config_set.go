@@ -36,6 +36,8 @@ you want to change. Other options will remain unchanged.`,
 			switch flag.Name {
 			case "baseurl":
 				ser.BaseURL, err = getString(flags, flag.Name)
+			case "dlurl":
+				ser.DownloadURL, err = getString(flags, flag.Name)
 			case "root":
 				ser.Root, err = getString(flags, flag.Name)
 			case "socket":

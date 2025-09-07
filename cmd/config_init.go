@@ -128,6 +128,11 @@ override the options.`,
 			return err
 		}
 
+		downloadURL, err := getString(flags, "dlurl")
+		if err != nil {
+			return err
+		}
+
 		tlsKey, err := getString(flags, "key")
 		if err != nil {
 			return err
@@ -149,14 +154,15 @@ override the options.`,
 		}
 
 		ser := &settings.Server{
-			Address: address,
-			Socket:  socket,
-			Root:    root,
-			BaseURL: baseURL,
-			TLSKey:  tlsKey,
-			TLSCert: cert,
-			Port:    port,
-			Log:     log,
+			Address:     address,
+			Socket:      socket,
+			Root:        root,
+			BaseURL:     baseURL,
+			DownloadURL: downloadURL,
+			TLSKey:      tlsKey,
+			TLSCert:     cert,
+			Port:        port,
+			Log:         log,
 		}
 
 		err = d.store.Settings.Save(s)

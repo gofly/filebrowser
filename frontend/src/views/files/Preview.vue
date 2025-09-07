@@ -256,7 +256,7 @@ const hasPrevious = computed(() => previousLink.value !== "");
 const hasNext = computed(() => nextLink.value !== "");
 
 const downloadUrl = computed(() =>
-  fileStore.req ? api.getDownloadURL(fileStore.req, false) : ""
+  fileStore.req ? api.getRawURL(fileStore.req, false) : ""
 );
 
 const previewUrl = computed(() => {
@@ -272,7 +272,7 @@ const previewUrl = computed(() => {
     return createURL("api/raw" + fileStore.req.path, {});
   }
 
-  return api.getDownloadURL(fileStore.req, true);
+  return api.getRawURL(fileStore.req, true);
 });
 
 const isPdf = computed(() => fileStore.req?.extension.toLowerCase() == ".pdf");
@@ -410,7 +410,7 @@ const prefetchUrl = (item: ResourceItem) => {
   }
 
   return fullSize.value
-    ? api.getDownloadURL(item, true)
+    ? api.getRawURL(item, true)
     : api.getPreviewURL(item, "big");
 };
 

@@ -90,7 +90,7 @@ export async function post(
   url: string,
   content: ApiContent = "",
   overwrite = false,
-  onupload: any = () => {}
+  onupload: any = () => { }
 ) {
   // Use the pre-existing API if:
   const useResourcesApi =
@@ -166,9 +166,8 @@ function moveCopy(
   for (const item of items) {
     const from = item.from;
     const to = encodeURIComponent(removePrefix(item.to ?? ""));
-    const url = `${from}?action=${
-      copy ? "copy" : "rename"
-    }&destination=${to}&override=${overwrite}&rename=${rename}`;
+    const url = `${from}?action=${copy ? "copy" : "rename"
+      }&destination=${to}&override=${overwrite}&rename=${rename}`;
     promises.push(resourceAction(url, "PATCH"));
   }
   layoutStore.closeHovers();
@@ -188,7 +187,7 @@ export async function checksum(url: string, algo: ChecksumAlg) {
   return (await data.json()).checksums[algo];
 }
 
-export function getDownloadURL(file: ResourceItem, inline: any) {
+export function getRawURL(file: ResourceItem, inline: any) {
   const params = {
     ...(inline && { inline: "true" }),
   };
