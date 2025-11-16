@@ -241,7 +241,9 @@ func (i *FileInfo) detectType(modify, saveContent, readHeader bool, calcImgRes b
 	}
 
 	switch {
-	case strings.HasPrefix(mimetype, "video"):
+	case strings.HasPrefix(mimetype, "video") ||
+		strings.HasSuffix(mimetype, "x-mpegURL") ||
+		strings.HasSuffix(mimetype, "vnd.apple.mpegurl"):
 		i.Type = "video"
 		i.detectSubtitles()
 		return nil
