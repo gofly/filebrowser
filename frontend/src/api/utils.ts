@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { renew, logout } from "@/utils/auth";
-import { baseURL, downloadURL } from "@/utils/constants";
+import { baseURL, downloadURLPrefix } from "@/utils/constants";
 import { encodePath } from "@/utils/url";
 
 export class StatusError extends Error {
@@ -93,7 +93,7 @@ export function createURL(endpoint: string, searchParams = {}): string {
 }
 
 export function createDownloadURL(endpoint: string, searchParams = {}): string {
-  let prefix = downloadURL;
+  let prefix = downloadURLPrefix;
   if (!prefix.endsWith("/")) {
     prefix = prefix + "/";
   }

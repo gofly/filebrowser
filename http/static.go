@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/fs"
 	"log"
 	"net/http"
@@ -12,12 +13,43 @@ import (
 	"path/filepath"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/filebrowser/filebrowser/v2/auth"
 	"github.com/filebrowser/filebrowser/v2/settings"
 	"github.com/filebrowser/filebrowser/v2/storage"
 	"github.com/filebrowser/filebrowser/v2/version"
 )
+
+var httpClient = &http.Client{
+	Timeout: 1 * time.Second, // 10 seconds
+}
+
+func generateDownloadURLPrefix(downloadPortAPI string) (string, error) {
+	resp, err := httpClient.Get(downloadPortAPI)
+	if err != nil {
+		return "", err
+	}
+	defer func() {
+		io.Copy(io.Discard, resp.Body)
+		resp.Body.Close()
+	}()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+	ret := struct {
+		PublicPort int16  `json:"public_port"`
+		Domain     string `json:"domain"`
+	}{}
+
+	err = json.NewDecoder(resp.Body).Decode(&ret)
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("https://%s:%d", ret.Domain, ret.PublicPort), nil
+}
 
 func handleWithStaticData(w http.ResponseWriter, _ *http.Request, d *data, fSys fs.FS, file, contentType string) (int, error) {
 	w.Header().Set("Content-Type", contentType)
@@ -27,13 +59,21 @@ func handleWithStaticData(w http.ResponseWriter, _ *http.Request, d *data, fSys 
 		return http.StatusInternalServerError, err
 	}
 
+	downloadURLPrefix := d.server.DownloadPrefix
+	if d.server.DownloadPrefixAPI != "" {
+		downloadURLPrefix, err = generateDownloadURLPrefix(d.server.DownloadPrefixAPI)
+		if err != nil {
+			return http.StatusInternalServerError, err
+		}
+	}
+
 	data := map[string]interface{}{
 		"Name":                  d.settings.Branding.Name,
 		"DisableExternal":       d.settings.Branding.DisableExternal,
 		"DisableUsedPercentage": d.settings.Branding.DisableUsedPercentage,
 		"Color":                 d.settings.Branding.Color,
 		"BaseURL":               d.server.BaseURL,
-		"DownloadURL":           d.server.DownloadURL,
+		"DownloadURLPrefix":     downloadURLPrefix,
 		"Version":               version.Version,
 		"StaticURL":             path.Join(d.server.BaseURL, "/static"),
 		"Signup":                d.settings.Signup,

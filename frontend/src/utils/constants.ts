@@ -2,7 +2,7 @@ const name: string = window.FileBrowser.Name || "File Browser";
 const disableExternal: boolean = window.FileBrowser.DisableExternal;
 const disableUsedPercentage: boolean = window.FileBrowser.DisableUsedPercentage;
 const baseURL: string = window.FileBrowser.BaseURL;
-const downloadURL: string = window.FileBrowser.DownloadURL;
+const downloadURLPrefix: string = window.FileBrowser.DownloadURLPrefix;
 const staticURL: string = window.FileBrowser.StaticURL;
 const recaptcha: string = window.FileBrowser.ReCaptcha;
 const recaptchaKey: string = window.FileBrowser.ReCaptchaKey;
@@ -25,7 +25,7 @@ export {
   disableExternal,
   disableUsedPercentage,
   baseURL,
-  downloadURL,
+  downloadURLPrefix,
   logoURL,
   recaptcha,
   recaptchaKey,
