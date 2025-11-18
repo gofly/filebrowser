@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { renew, logout } from "@/utils/auth";
-import { baseURL, downloadURL } from "@/utils/constants";
+import { baseURL, downloadURLPrefix } from "@/utils/constants";
 import { encodePath } from "@/utils/url";
 
 export class StatusError extends Error {
@@ -111,7 +111,7 @@ export function setSafeTimeout(callback: () => void, delay: number): number {
 }
 
 export function createDownloadURL(endpoint: string, searchParams = {}): string {
-  let prefix = downloadURL;
+  let prefix = downloadURLPrefix;
   if (!prefix.endsWith("/")) {
     prefix = prefix + "/";
   }

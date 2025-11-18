@@ -107,7 +107,8 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.StringP("baseURL", "b", "", "base url")
-	flags.String("downloadURL", "", "download url")
+	flags.String("downloadPrefix", "", "download url prefix")
+	flags.String("downloadPrefixAPI", "", "download url prefix API")
 	flags.String("tokenExpirationTime", "2h", "user session timeout")
 	flags.Bool("disableThumbnails", false, "disable image thumbnails")
 	flags.Bool("disablePreviewResize", false, "disable resize of image previews")
@@ -333,6 +334,22 @@ func getServerSettings(v *viper.Viper, st *storage.Storage) (*settings.Server, e
 		server.BaseURL = v
 	}
 
+	if v.IsSet("downloadPrefix") {
+		server.DownloadPrefix = v.GetString("downloadPrefix")
+		// TODO(remove): remove after July 2026.
+	} else if v := os.Getenv("FB_DOWNLOADPREFIX"); v != "" {
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIX has been deprecated, use FB_BASE_URL instead")
+		server.DownloadPrefix = v
+	}
+
+	if v.IsSet("downloadPrefixAPI") {
+		server.DownloadPrefixAPI = v.GetString("downloadPrefixAPI")
+		// TODO(remove): remove after July 2026.
+	} else if v := os.Getenv("FB_DOWNLOADPREFIXAPI"); v != "" {
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIXAPI has been deprecated, use FB_BASE_URL instead")
+		server.DownloadPrefixAPI = v
+	}
+
 	if v.IsSet("tokenExpirationTime") {
 		server.TokenExpirationTime = v.GetString("tokenExpirationTime")
 	}
@@ -474,6 +491,8 @@ func quickSetup(v *viper.Viper, s *storage.Storage) error {
 
 	ser := &settings.Server{
 		BaseURL:                v.GetString("baseURL"),
+		DownloadPrefix:         v.GetString("downloadPrefix"),
+		DownloadPrefixAPI:      v.GetString("downloadPrefixAPI"),
 		Port:                   v.GetString("port"),
 		Log:                    v.GetString("log"),
 		TLSKey:                 v.GetString("key"),
