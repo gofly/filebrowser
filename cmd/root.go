@@ -106,6 +106,8 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.StringP("baseURL", "b", "", "base url")
+	flags.String("downloadBaseURL", "", "download base url")
+	flags.String("downloadBaseURLAPI", "", "download base url API")
 	flags.String("tokenExpirationTime", "2h", "user session timeout")
 	flags.Bool("disableThumbnails", false, "disable image thumbnails")
 	flags.Bool("disablePreviewResize", false, "disable resize of image previews")
@@ -331,6 +333,22 @@ func getServerSettings(v *viper.Viper, st *storage.Storage) (*settings.Server, e
 		server.BaseURL = v
 	}
 
+	if v.IsSet("downloadBaseURL") {
+		server.DownloadBaseURL = v.GetString("downloadBaseURL")
+		// TODO(remove): remove after July 2026.
+	} else if v := os.Getenv("FB_DOWNLOADBASEURL"); v != "" {
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADBASEURL has been deprecated, use FB_DOWNLOAD_BASE_URL instead")
+		server.DownloadBaseURL = v
+	}
+
+	if v.IsSet("downloadBaseURLAPI") {
+		server.DownloadBaseURLAPI = v.GetString("downloadBaseURLAPI")
+		// TODO(remove): remove after July 2026.
+	} else if v := os.Getenv("FB_DOWNLOADBASEURLAPI"); v != "" {
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADBASEURLAPI has been deprecated, use FB_DOWNLOAD_BASE_URL_API instead")
+		server.DownloadBaseURLAPI = v
+	}
+
 	if v.IsSet("tokenExpirationTime") {
 		server.TokenExpirationTime = v.GetString("tokenExpirationTime")
 	}
@@ -472,6 +490,8 @@ func quickSetup(v *viper.Viper, s *storage.Storage) error {
 
 	ser := &settings.Server{
 		BaseURL:                v.GetString("baseURL"),
+		DownloadBaseURL:        v.GetString("downloadBaseURL"),
+		DownloadBaseURLAPI:     v.GetString("downloadBaseURLAPI"),
 		Port:                   v.GetString("port"),
 		Log:                    v.GetString("log"),
 		TLSKey:                 v.GetString("key"),

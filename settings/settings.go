@@ -49,6 +49,8 @@ func (s *Settings) GetRules() []rules.Rule {
 type Server struct {
 	Root                   string `json:"root"`
 	BaseURL                string `json:"baseURL"`
+	DownloadBaseURL        string `json:"downloadBaseURL"`
+	DownloadBaseURLAPI     string `json:"downloadBaseURLAPI"`
 	Socket                 string `json:"socket"`
 	TLSKey                 string `json:"tlsKey"`
 	TLSCert                string `json:"tlsCert"`
