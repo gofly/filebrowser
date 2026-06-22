@@ -96,17 +96,14 @@
             class="share__box__element share__box__center share__box__icon"
             style="padding: 0em !important; height: 12em !important"
           >
-            <a
-              target="_blank"
-              :href="link"
+            <div
+              v-if="req.type === 'image'"
+              @click="togglePreview"
               class="button button--flat"
-              v-if="
-                req.type === 'image'
-              "
-              style="height: 12em; padding: 0; margin: 0"
+              style="height: 12em; padding: 0; margin: 0; cursor: pointer"
             >
               <img style="height: 12em" :src="link" />
-            </a>
+            </div>
             <div
               v-else-if="
                 req.type === 'audio'
@@ -215,19 +212,18 @@
             class="share__box__element share__box__center share__box__icon"
             style="padding: 0em !important; height: 12em !important"
           >
-            <a
-              target="_blank"
-              :href="raw"
-              class="button button--flat"
+            <div
               v-if="
                 !fileStore.multiple &&
                 fileStore.selectedCount === 1 &&
                 req.items[fileStore.selected[0]].type === 'image'
               "
-              style="height: 12em; padding: 0; margin: 0"
+              @click="togglePreview"
+              class="button button--flat"
+              style="height: 12em; padding: 0; margin: 0; cursor: pointer"
             >
               <img style="height: 12em" :src="raw" />
-            </a>
+            </div>
             <div
               v-else-if="
                 fileStore.multiple &&
@@ -356,6 +352,15 @@
           </h2>
         </div>
       </div>
+      <div v-if="showPreview" class="preview-overlay">
+        <header-bar>
+          <action icon="close" :label="t('buttons.close')" @action="togglePreview" />
+          <title>{{ previewName }}</title>
+        </header-bar>
+        <div class="preview-content">
+          <ExtendedImage v-if="previewSrc" :src="previewSrc" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -368,6 +373,7 @@ import { Base64 } from "js-base64";
 import { createURL } from "@/api/utils";
 import HeaderBar from "@/components/header/HeaderBar.vue";
 import Action from "@/components/header/Action.vue";
+import ExtendedImage from "@/components/files/ExtendedImage.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import Errors from "@/views/Errors.vue";
 import QrcodeVue from "qrcode.vue";
@@ -388,6 +394,7 @@ const hash = ref<string>("");
 const token = ref<string>("");
 const audio = ref<HTMLAudioElement>();
 const tag = ref<boolean>(false);
+const showPreview = ref<boolean>(false);
 
 const $showError = inject<IToastError>("$showError")!;
 const $showSuccess = inject<IToastSuccess>("$showSuccess")!;
@@ -442,6 +449,23 @@ const modTime = computed(() =>
     ? new Date(Date.parse(req.value.modified)).toLocaleString()
     : new Date().toLocaleString()
 );
+const previewSrc = computed(() => {
+  if (req.value && !req.value.isDir && req.value.type === "image") {
+    return link.value;
+  }
+  if (req.value && req.value.isDir && fileStore.selectedCount === 1) {
+    const item = req.value.items[fileStore.selected[0]];
+    if (item.type === "image") return raw.value;
+  }
+  return "";
+});
+const previewName = computed(() => {
+  if (req.value && !req.value.isDir) return req.value.name;
+  if (req.value && req.value.isDir && fileStore.selectedCount === 1) {
+    return req.value.items[fileStore.selected[0]].name;
+  }
+  return "";
+});
 
 // Functions
 const base64 = (name: any) => Base64.encodeURI(name);
@@ -453,6 +477,9 @@ const play = () => {
     audio.value?.play();
     tag.value = true;
   }
+};
+const togglePreview = () => {
+  showPreview.value = !showPreview.value;
 };
 const fetchData = async () => {
   fileStore.reload = false;
@@ -490,6 +517,11 @@ const fetchData = async () => {
 
 const keyEvent = (event: KeyboardEvent) => {
   if (event.key === "Escape") {
+    if (showPreview.value) {
+      togglePreview();
+      return;
+    }
+
     // If we're on a listing, unselect all
     // files and folders.
     if (fileStore.selectedCount > 0) {
@@ -598,5 +630,26 @@ onBeforeUnmount(() => {
     height: calc(100vh - 9.8em);
     overflow-y: auto;
   }
+}
+
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-content {
+  flex: 1;
+  display: flex;
+  top:4em;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 </style>
