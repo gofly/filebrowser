@@ -207,7 +207,7 @@ export async function checksum(url: string, algo: ChecksumAlg) {
   return (await data.json()).checksums[algo];
 }
 
-export function getRawURL(file: ResourceItem, inline: any) {
+export function getDownloadURL(file: ResourceItem, inline: any) {
   const params = {
     ...(inline && { inline: "true" }),
   };

@@ -40,7 +40,7 @@ func generateDownloadURLPrefix(downloadPortAPI string) (string, error) {
 		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 	ret := struct {
-		PublicPort int16  `json:"public_port"`
+		PublicPort uint16 `json:"public_port"`
 		Domain     string `json:"domain"`
 	}{}
 
@@ -61,7 +61,7 @@ func handleWithStaticData(w http.ResponseWriter, _ *http.Request, d *data, fSys 
 	}
 
 	downloadURLPrefix := d.server.DownloadPrefix
-	if d.server.DownloadPrefixAPI != "" {
+	if downloadURLPrefix == "" && d.server.DownloadPrefixAPI != "" {
 		downloadURLPrefix, err = generateDownloadURLPrefix(d.server.DownloadPrefixAPI)
 		if err != nil {
 			return http.StatusInternalServerError, err

@@ -338,7 +338,7 @@ func getServerSettings(v *viper.Viper, st *storage.Storage) (*settings.Server, e
 		server.DownloadPrefix = v.GetString("downloadPrefix")
 		// TODO(remove): remove after July 2026.
 	} else if v := os.Getenv("FB_DOWNLOADPREFIX"); v != "" {
-		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIX has been deprecated, use FB_BASE_URL instead")
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIX has been deprecated, use FB_DOWNLOAD_PREFIX instead")
 		server.DownloadPrefix = v
 	}
 
@@ -346,7 +346,7 @@ func getServerSettings(v *viper.Viper, st *storage.Storage) (*settings.Server, e
 		server.DownloadPrefixAPI = v.GetString("downloadPrefixAPI")
 		// TODO(remove): remove after July 2026.
 	} else if v := os.Getenv("FB_DOWNLOADPREFIXAPI"); v != "" {
-		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIXAPI has been deprecated, use FB_BASE_URL instead")
+		log.Println("DEPRECATION NOTICE: Environment variable FB_DOWNLOADPREFIXAPI has been deprecated, use FB_DOWNLOAD_PREFIX_API instead")
 		server.DownloadPrefixAPI = v
 	}
 
